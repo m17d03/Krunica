@@ -1,0 +1,33 @@
+{
+ "title": "SVI SVETI",
+ "rank": "Svetkovina",
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "bijela",
+ "saints": [],
+ "namedays": [
+  "Svetislav",
+  "Dobroslav"
+ ],
+ "note": "▪ Potpuni oprost za pokojnike čije su duše u čistilištu može postići:",
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Otk 7,2-4.9-14"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 24,1-6"
+  },
+  {
+   "label": "Drugo čitanje",
+   "ref": "1Iv 3,1-3"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Mt 5,1-12a"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/nedjelja-1-11-2026/",
+ "parsedAt": "2026-10-31T04:11:01.434Z"
+}

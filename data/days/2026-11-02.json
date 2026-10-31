@@ -1,0 +1,34 @@
+{
+ "title": "Spomen svih vjernika pokojnika",
+ "rank": null,
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "ljubičasta",
+ "saints": [],
+ "namedays": [
+  "Duško",
+  "Dušan",
+  "Viktorin"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Iz 25,6a.7-9"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 25,6-7c.17-18.20-21"
+  },
+  {
+   "label": "Drugo čitanje",
+   "ref": "Rim 8,14-23"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Mt 25,31-46"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/ponedjeljak-2-11-2026/",
+ "parsedAt": "2026-10-31T04:11:07.407Z"
+}

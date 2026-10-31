@@ -1,0 +1,32 @@
+{
+ "title": "Petak, 30. 10. 2026.",
+ "rank": "Svagdan",
+ "week": "XXX. tjedan kroz godinu",
+ "psalter": "2. tjedan psaltira",
+ "color": "zelena",
+ "saints": [],
+ "namedays": [
+  "Marcijan",
+  "Marcel",
+  "Marsela",
+  "Klaudije",
+  "Gerard"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 1,1-11"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 111,1-6"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 14,1-6"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/petak-30-10-2026/",
+ "parsedAt": "2026-10-31T04:10:59.044Z"
+}

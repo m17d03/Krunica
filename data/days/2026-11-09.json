@@ -1,0 +1,30 @@
+{
+ "title": "POSVETA LATERANSKE BAZILIKE",
+ "rank": "Blagdan",
+ "week": "XXXII. tjedan kroz godinu",
+ "psalter": "4. tjedan psaltira",
+ "color": "bijela",
+ "saints": [],
+ "namedays": [
+  "Vitomir",
+  "Vito",
+  "Gabrijel"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Ez 47,1-2.8-9.12"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 46,2-3.5-6.8-9"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Iv 2,13-22"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/ponedjeljak-9-11-2026/",
+ "parsedAt": "2026-10-31T04:11:30.631Z"
+}

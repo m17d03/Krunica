@@ -1,0 +1,33 @@
+{
+ "title": "Četvrtak, 5. 11. 2026.",
+ "rank": "Svagdan",
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "zelena/bijela",
+ "saints": [
+  "ili: Sv. Emerik († 1031.), laik"
+ ],
+ "namedays": [
+  "Emerik",
+  "Mirko",
+  "Elizabeta",
+  "Zaharija"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 3,3-8a"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 105,2-7"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 15,1-10"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/cetvrtak-5-11-2026/",
+ "parsedAt": "2026-10-31T04:11:16.645Z"
+}

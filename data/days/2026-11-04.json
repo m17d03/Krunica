@@ -1,0 +1,34 @@
+{
+ "title": "Srijeda, 4. 11. 2026.",
+ "rank": "Spomendan",
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "bijela",
+ "saints": [
+  "Sv. Karlo Boromejski († 1584.), biskup"
+ ],
+ "namedays": [
+  "Karlo",
+  "Karolina",
+  "Dragutin",
+  "Drago",
+  "Dragica"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 2,12-18"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 27,1.4.13-14"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 14,25-33"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/srijeda-4-11-2026/",
+ "parsedAt": "2026-10-31T04:11:13.204Z"
+}

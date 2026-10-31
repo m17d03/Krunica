@@ -1,0 +1,31 @@
+{
+ "title": "Subota, 7. 11. 2026.",
+ "rank": "Svagdan",
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "zelena",
+ "saints": [],
+ "namedays": [
+  "Baldo",
+  "Lazar Stilit",
+  "Engelbert",
+  "Anđelko"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 4,10-19"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 112,1-2.5-6.8a.9"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 16,9-15"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/subota-7-11-2026/",
+ "parsedAt": "2026-10-31T04:11:23.613Z"
+}

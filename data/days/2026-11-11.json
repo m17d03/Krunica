@@ -1,0 +1,33 @@
+{
+ "title": "Srijeda, 11. 11. 2026.",
+ "rank": "Spomendan",
+ "week": "XXXII. tjedan kroz godinu",
+ "psalter": "4. tjedan psaltira",
+ "color": "bijela",
+ "saints": [
+  "Sv. Martin Tourski († 397.), biskup"
+ ],
+ "namedays": [
+  "Martin",
+  "Martina",
+  "Viktorin",
+  "Davorin"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Tit 3,1-7"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 23,1-6"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 17,11-19"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/srijeda-11-11-2026/",
+ "parsedAt": "2026-10-31T04:11:35.824Z"
+}

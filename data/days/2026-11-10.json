@@ -1,0 +1,33 @@
+{
+ "title": "Utorak, 10. 11. 2026.",
+ "rank": "Spomendan",
+ "week": "XXXII. tjedan kroz godinu",
+ "psalter": "4. tjedan psaltira",
+ "color": "bijela",
+ "saints": [
+  "Sv. Lav Veliki († 461.), papa i crkveni naučitelj"
+ ],
+ "namedays": [
+  "Leon",
+  "Lavoslav",
+  "Lav",
+  "Demetrije"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Tit 2,1-8.11-14"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 37,3-4.18.23.27.29"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 17,7-10"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/utorak-10-11-2026/",
+ "parsedAt": "2026-10-31T04:11:31.833Z"
+}

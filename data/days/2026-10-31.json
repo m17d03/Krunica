@@ -1,0 +1,31 @@
+{
+ "title": "Subota, 31. 10. 2026.",
+ "rank": "Svagdan",
+ "week": "XXX. tjedan kroz godinu",
+ "psalter": "2. tjedan psaltira",
+ "color": "zelena",
+ "saints": [],
+ "namedays": [
+  "Wolfgang",
+  "Vukmir",
+  "Kristofor",
+  "Alfonz"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 1,18b-26"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 42,2-3.5bcd"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 14,1.7-11"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/subota-31-10-2026/",
+ "parsedAt": "2026-10-31T04:11:00.222Z"
+}

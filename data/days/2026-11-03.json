@@ -1,0 +1,34 @@
+{
+ "title": "Utorak, 3. 11. 2026.",
+ "rank": "Svagdan",
+ "week": "XXXI. tjedan kroz godinu",
+ "psalter": "3. tjedan psaltira",
+ "color": "zelena",
+ "saints": [
+  "ili: Sv. Martin iz Porresa († 1639.), redovnik"
+ ],
+ "namedays": [
+  "Martin",
+  "Martina",
+  "Silvija",
+  "Berard",
+  "Ida"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Fil 2,5-11"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 22,26b-28.30-32"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 14,15-24"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/utorak-3-11-2026/",
+ "parsedAt": "2026-10-31T04:11:12.048Z"
+}

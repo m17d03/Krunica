@@ -1,0 +1,35 @@
+{
+ "title": "TRIDESET I DRUGA NEDJELJA KROZ GODINU",
+ "rank": null,
+ "week": "XXXII. tjedan kroz godinu",
+ "psalter": "4. tjedan psaltira",
+ "color": "zelena",
+ "saints": [],
+ "namedays": [
+  "Gracija",
+  "Klaudije",
+  "Ivan Duns Skot",
+  "Bogdan"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": "Mudr 6,12-16"
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 63,2-8"
+  },
+  {
+   "label": "Drugo čitanje",
+   "ref": "1Sol 4,13-18"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Mt 25,1-13"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/nedjelja-8-11-2026/",
+ "parsedAt": "2026-10-31T04:11:29.429Z"
+}

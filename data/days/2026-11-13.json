@@ -1,0 +1,32 @@
+{
+ "title": "Petak, 13. 11. 2026.",
+ "rank": "Svagdan",
+ "week": "XXXII. tjedan kroz godinu",
+ "psalter": "4. tjedan psaltira",
+ "color": "zelena",
+ "saints": [],
+ "namedays": [
+  "Stanislav",
+  "Stanko",
+  "Brikcije",
+  "Brcko",
+  "Ivan Trogirski"
+ ],
+ "note": null,
+ "readings": [
+  {
+   "label": "Prvo čitanje",
+   "ref": ""
+  },
+  {
+   "label": "Otpjevni psalam",
+   "ref": "Ps 119,1-2.10-11.17-18"
+  },
+  {
+   "label": "Evanđelje",
+   "ref": "Lk 17,26-37"
+  }
+ ],
+ "source": "https://hilp.hr/liturgija-dana/petak-13-11-2026/",
+ "parsedAt": "2026-10-31T04:11:46.569Z"
+}
