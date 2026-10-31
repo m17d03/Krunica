@@ -1,0 +1,70 @@
+name: Dnevno osvježavanje
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # svaki dan oko 4:17 / 5:17 po zagrebačkom vremenu
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: "Spremi tekst stranica za provjeru (1 dan)"
+        type: boolean
+        default: false
+      force:
+        description: "Ponovno preuzmi sve dane"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths: ["index.html", "sw.js", "manifest.webmanifest", "icons/**", ".github/workflows/update.yml"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: krunica
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Preuzmi podatke
+        if: github.event_name != 'push'
+        env:
+          KRUNICA_KEY: ${{ secrets.KRUNICA_KEY }}
+          KRUNICA_DEBUG: ${{ inputs.debug && '1' || '' }}
+          KRUNICA_FORCE: ${{ inputs.force && '1' || '' }}
+        run: node scripts/fetch.mjs
+      - name: Spremi promjene
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "krunica-bot"
+          git config user.email "krunica-bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "Podaci: $(date -u +%F)"
+          git push
+      - name: Debug tekst stranica
+        if: inputs.debug
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug
+          path: debug/
+          retention-days: 1
+      - name: Pripremi stranicu
+        run: |
+          mkdir -p _site
+          cp -r index.html sw.js manifest.webmanifest icons data _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4

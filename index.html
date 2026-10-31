@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Krunica">
+<meta name="theme-color" content="#1d2433">
+<title>Krunica – molitva dana</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --card:#fffdf8; --ink:#2a2620; --muted:#7a7064; --line:#e6dccb;
+  --accent:#8a6a2f; --accent-ink:#fff; --lit:#3f7a46;
+  --serif:"EB Garamond",Georgia,serif; --sans:Inter,-apple-system,system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#141922; --card:#1d2433; --ink:#ece6da; --muted:#a39a8c; --line:#2d3546; --accent:#d4b06a; --accent-ink:#1d2433;}
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+a{color:var(--accent)}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 14px}
+.top h1{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0;text-align:center;flex:1}
+.navbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--card);font-size:1.2rem}
+.todaylink{display:block;text-align:center;font-size:.8rem;color:var(--muted);margin:-8px 0 12px;text-decoration:underline}
+.todaylink[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
+.card.lit::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--lit)}
+.eyebrow{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.daytitle{font-family:var(--serif);font-size:1.55rem;line-height:1.15;margin:2px 0 6px;font-weight:500}
+.meta{color:var(--muted);font-size:.88rem}
+.saints{margin:12px 0 0;padding:0;list-style:none}
+.saints li{font-family:var(--serif);font-size:1.12rem;padding:2px 0}
+.saints li::before{content:"✝ ";color:var(--accent)}
+.names{font-size:.82rem;color:var(--muted);margin-top:6px}
+.readings{margin-top:14px;border-top:1px solid var(--line)}
+.rd{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.rd .lbl{flex:1;font-size:.86rem;color:var(--muted)}
+.rd .ref{font-family:var(--serif);font-size:1.15rem;font-weight:500}
+.badge{font-size:.66rem;font-weight:600;letter-spacing:.05em;padding:3px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);min-width:34px;text-align:center}
+.badge.nz{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:999px;border:1px solid var(--line);font-size:.85rem;text-decoration:none;color:var(--ink);background:var(--bg)}
+.note{font-size:.8rem;color:var(--muted);margin-top:10px}
+.mys-head{font-family:var(--serif);font-size:1.45rem;margin:2px 0 2px;font-weight:500}
+.why{font-size:.85rem;color:var(--muted)}
+.mys-list{margin:12px 0 0;padding:0;list-style:none;counter-reset:m}
+.mys-list li{display:flex;align-items:center;gap:10px;padding:7px 0;font-family:var(--serif);font-size:1.07rem}
+.mys-list li::before{counter-increment:m;content:counter(m);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:.75rem;border:1px solid var(--line);flex:none}
+.mys-list li span{flex:1}
+.info{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);font-size:.8rem;font-style:italic;font-family:var(--serif);flex:none;color:var(--accent)}
+.seg{display:flex;gap:6px;margin-top:14px;overflow-x:auto;padding-bottom:2px}
+.seg button{flex:1;padding:8px 6px;border-radius:12px;border:1px solid var(--line);font-size:.78rem;white-space:nowrap;background:var(--bg)}
+.seg button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.big{display:block;width:100%;margin-top:16px;padding:15px;border-radius:14px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:1rem;text-align:center}
+.big.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);margin-top:8px}
+.plist{list-style:none;margin:6px 0 0;padding:0}
+.plist li{border-bottom:1px solid var(--line)}
+.plist li:last-child{border-bottom:0}
+.plist a{display:block;padding:11px 0;text-decoration:none;color:var(--ink);font-family:var(--serif);font-size:1.06rem}
+.plist small{display:block;font-family:var(--sans);font-size:.74rem;color:var(--muted)}
+.empty{color:var(--muted);font-size:.9rem}
+/* Rosary mode */
+#pray{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;flex-direction:column;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#pray.open{display:flex}
+.pbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;gap:10px}
+.pbar .x{font-size:.9rem;color:var(--muted);padding:8px}
+.pbar .mini{font-size:.8rem;color:var(--muted);text-align:center;flex:1}
+.toggle{font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted)}
+.beads{display:flex;justify-content:center;gap:7px;padding:4px 14px 2px;flex-wrap:wrap}
+.bead{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--accent);opacity:.9}
+.bead.big1{width:16px;height:16px;border-radius:4px}
+.bead.done{background:var(--accent);opacity:.45}
+.bead.now{background:var(--accent);opacity:1;transform:scale(1.25)}
+.decs{display:flex;justify-content:center;gap:6px;padding:8px 0 0}
+.decs i{width:22px;height:4px;border-radius:2px;background:var(--line)}
+.decs i.done{background:var(--accent);opacity:.5}
+.decs i.now{background:var(--accent)}
+.pbody{flex:1;overflow-y:auto;padding:18px 22px 10px;display:flex;flex-direction:column;justify-content:center}
+.pkind{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:6px}
+.ptitle{font-family:var(--serif);font-size:1.5rem;text-align:center;margin:0 0 4px;font-weight:500}
+.pcount{text-align:center;font-size:.9rem;color:var(--accent);margin-bottom:14px;font-weight:600}
+.ptext{font-family:var(--serif);font-size:1.32rem;line-height:1.5;text-align:center}
+.ptext em{color:var(--accent);font-style:italic}
+.mysbox{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px 16px;margin:0 auto 16px;max-width:460px;text-align:center}
+.mysbox .n{font-size:.75rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.mysbox .t{font-family:var(--serif);font-size:1.3rem;margin:3px 0}
+.mysbox button{font-size:.82rem;color:var(--accent);text-decoration:underline;margin-top:4px}
+.pbody.top{justify-content:flex-start}
+.lresp{text-align:center;font-size:.85rem;color:var(--muted);margin:2px 0 10px}
+.lresp em{color:var(--accent)}
+.litany{list-style:none;margin:0 auto;padding:0;max-width:460px;width:100%}
+.litany li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:1.16rem}
+.litany li em{color:var(--accent);font-size:.95rem;white-space:nowrap}
+.litany li.block{display:block;text-align:center;padding:10px 0}
+.litany li.block em{display:block;white-space:normal;font-size:1.1rem}
+.litany sup{color:var(--accent);font-size:.6em}
+.optrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:.9rem}
+.switch{width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch.on{background:var(--accent)}
+.switch.on::after{left:21px}
+.pctrl{display:flex;gap:10px;padding:10px 14px 16px}
+.pctrl .back{width:64px;border-radius:14px;border:1px solid var(--line);font-size:1.3rem}
+.pctrl .next{flex:1;padding:18px;border-radius:14px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:1.05rem}
+/* sheet */
+#sheet{position:fixed;inset:0;z-index:40;display:none;background:rgba(0,0,0,.35);align-items:flex-end;justify-content:center}
+#sheet.open{display:flex}
+.sh{background:var(--card);width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto}
+.sh h3{font-family:var(--serif);font-size:1.4rem;margin:0 0 4px;font-weight:500}
+.sh .ref{color:var(--accent);font-size:.88rem;margin-bottom:10px}
+.sh p{font-family:var(--serif);font-size:1.12rem;line-height:1.5;margin:8px 0}
+.sh .fruit{font-size:.9rem;color:var(--muted);font-family:var(--sans)}
+.sh .close{display:block;width:100%;margin-top:14px;padding:13px;border-radius:12px;border:1px solid var(--line)}
+.thought{font-family:var(--serif);font-style:italic;font-size:1.12rem;color:var(--accent);margin:4px 0 8px}
+.rd.tap{cursor:pointer}
+.rd.tap .ref::after{content:" ›";color:var(--muted)}
+#reader{position:fixed;inset:0;z-index:30;background:var(--bg);display:none;flex-direction:column;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#reader.open{display:flex}
+#reader .rbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line)}
+#reader .rbar button{padding:8px;color:var(--muted)}
+#reader .rbody{flex:1;overflow-y:auto;padding:20px 22px 40px;max-width:640px;margin:0 auto;width:100%}
+.rsec{margin-bottom:28px}
+.rsec h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 2px}
+.rsec .rref{color:var(--accent);font-size:.9rem;margin-bottom:10px;display:flex;gap:8px;align-items:center}
+.rtext p,.rtext li{font-family:var(--serif);font-size:1.22rem;line-height:1.55;margin:0 0 10px}
+.rtext h2,.rtext h3,.rtext h4{font-family:var(--serif);font-weight:600}
+.rtext p.intro{font-style:italic;color:var(--muted);font-size:1.05rem}
+.rtext p.end{font-style:italic;color:var(--accent)}
+.rtext p.refrain{font-weight:600;color:var(--accent)}
+.rsrc{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:10px}
+.ts{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto}
+.ts button{padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:.8rem;white-space:nowrap;background:var(--card)}
+.foot{font-size:.74rem;color:var(--muted);text-align:center;margin-top:20px;line-height:1.5}
+.resume{display:none}
+.resume.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <button class="navbtn" id="prev" aria-label="Prethodni dan">‹</button>
+    <h1 id="dateTitle">…</h1>
+    <button class="navbtn" id="next" aria-label="Sljedeći dan">›</button>
+  </div>
+  <a href="#" class="todaylink" id="todayLink" hidden>Natrag na danas</a>
+
+  <section class="card lit" id="dayCard">
+    <div class="eyebrow"><span class="dot" id="litDot"></span><span id="season">…</span></div>
+    <div class="daytitle" id="dayTitle">…</div>
+    <div class="thought" id="thought" hidden></div>
+    <div class="meta" id="dayMeta"></div>
+    <ul class="saints" id="saints"></ul>
+    <div class="names" id="names"></div>
+    <div class="readings" id="readings"></div>
+    <div class="links">
+      <button class="pill" id="readAll" hidden>📖 Čitaj sva čitanja</button>
+      <button class="pill" id="commentBtn" hidden>💬 Komentar i molitva</button>
+      <a class="pill" id="hilpLink" href="#" target="_blank" rel="noopener">↗ HILP</a>
+    </div>
+    <div class="note" id="dayNote"></div>
+  </section>
+
+  <section class="card" id="unlockCard" hidden>
+    <div class="eyebrow">Tekstovi čitanja</div>
+    <p class="why" style="margin:0 0 10px">Tekstovi čitanja, komentara i molitava spremljeni su šifrirano. Unesi lozinku jednom – zapamtit ću je na ovom uređaju.</p>
+    <form id="unlockForm" style="display:flex;gap:8px">
+      <input id="pw" type="password" autocomplete="current-password" placeholder="Lozinka" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit">
+      <button class="pill" type="submit" style="background:var(--accent);color:var(--accent-ink);border-color:var(--accent)">Otključaj</button>
+    </form>
+    <div class="note" id="unlockMsg"></div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">Krunica za ovaj dan</div>
+    <div class="mys-head" id="mysHead">…</div>
+    <div class="why" id="mysWhy"></div>
+    <ol class="mys-list" id="mysList"></ol>
+    <div class="seg" id="seg"></div>
+    <div class="optrow"><span>Lauretanske litanije na kraju</span><button class="switch" id="litSwitch" role="switch" aria-label="Lauretanske litanije"></button></div>
+    <button class="big" id="startBtn">Započni krunicu</button>
+    <button class="big ghost resume" id="resumeBtn">Nastavi gdje si stao/la</button>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">Molitve i devetnice · Bog je tu</div>
+    <ul class="plist" id="prayers"><li class="empty">Učitavam…</li></ul>
+  </section>
+
+  <div class="foot">
+    Liturgijski podaci i čitanja: Hrvatski institut za liturgijski pastoral (hilp.hr).<br>
+    Molitve: bogjetu.com · Komentari: book.hr · Samo za osobnu uporabu.
+  </div>
+</div>
+
+<!-- Rosary mode -->
+<div id="pray" aria-modal="true" role="dialog">
+  <div class="pbar">
+    <button class="x" id="closePray">✕ Zatvori</button>
+    <div class="mini" id="pMini"></div>
+    <button class="toggle" id="shortBtn">Kratko</button>
+  </div>
+  <div class="decs" id="decs"></div>
+  <div class="beads" id="beads"></div>
+  <div class="pbody" id="pbody"></div>
+  <div class="pctrl">
+    <button class="back" id="backBtn" aria-label="Natrag">‹</button>
+    <button class="next" id="nextBtn">Dalje</button>
+  </div>
+</div>
+
+<div id="reader" role="dialog" aria-modal="true">
+  <div class="rbar"><button id="rClose">‹ Natrag</button><span class="mini" id="rTitle" style="font-size:.85rem;color:var(--muted)"></span><span style="width:60px"></span></div>
+  <div class="rbody" id="rBody"></div>
+</div>
+
+<div id="sheet"><div class="sh" id="sheetBody"></div></div>
+
+<script>
+/* ---------- Molitve (tradicionalni hrvatski tekstovi) ---------- */
+const P = {
+  kriz: {t:"Znak križa", full:"U ime Oca i Sina i Duha Svetoga. Amen."},
+  vjerujem: {t:"Vjerovanje", full:"Vjerujem u Boga, Oca svemogućega, Stvoritelja neba i zemlje. I u Isusa Krista, Sina njegova jedinoga, Gospodina našega, koji je začet po Duhu Svetom, rođen od Marije Djevice, mučen pod Poncijem Pilatom, raspet, umro i pokopan; sašao nad pakao, treći dan uskrsnuo od mrtvih; uzašao na nebesa, sjedi s desna Boga Oca svemogućega; odonud će doći suditi žive i mrtve. Vjerujem u Duha Svetoga, svetu Crkvu katoličku, općinstvo svetih, otpuštenje grijeha, uskrsnuće tijela i život vječni. Amen.",
+    short:"Vjerujem u Boga, Oca svemogućega … i život vječni. Amen."},
+  ocenas: {t:"Očenaš", full:"Oče naš, koji jesi na nebesima, sveti se ime tvoje, dođi kraljevstvo tvoje, budi volja tvoja, kako na nebu tako i na zemlji. Kruh naš svagdanji daj nam danas. I otpusti nam duge naše, kako i mi otpuštamo dužnicima našim. I ne uvedi nas u napast, nego izbavi nas od zla. Amen.",
+    short:"Oče naš, koji jesi na nebesima … nego izbavi nas od zla. Amen."},
+  slava: {t:"Slava Ocu", full:"Slava Ocu i Sinu i Duhu Svetomu. Kako bijaše na početku tako i sada i vazda i u vijeke vjekova. Amen."},
+  fatima: {t:"O moj Isuse", full:"O moj Isuse, oprosti nam grijehe naše, očuvaj nas od ognja paklenoga i dovedi u nebo sve duše, osobito one kojima je najviše potrebno tvoje milosrđe."},
+  kraljice: {t:"Zdravo Kraljice", full:"Zdravo Kraljice, Majko milosrđa, živote, slasti i ufanje naše, zdravo! K tebi vapijemo prognani sinovi Evini. K tebi uzdišemo tugujući i plačući u ovoj suznoj dolini. Svrni dakle, odvjetnice naša, one svoje milostive oči na nas i Isusa, blagoslovljeni plod utrobe svoje, pokaži nam nakon ovoga progonstva. O blaga, o mila, o slatka Djevice Marijo!",
+    short:"Zdravo Kraljice, Majko milosrđa … o slatka Djevice Marijo!"},
+  molizanas: {t:"Moli za nas", full:"Moli za nas, sveta Bogorodice.<br><em>Da dostojni postanemo obećanja Kristovih.</em>"},
+  pomolimo: {t:"Pomolimo se", full:"Bože, tvoj nam je Jedinorođenac svojim životom, smrću i uskrsnućem zaslužio nagradu vječnoga spasenja. Daj, molimo, da časteći ova otajstva presvete krunice Blažene Djevice Marije nasljedujemo što sadržavaju i postignemo što obećavaju. Po istom Kristu Gospodinu našem. Amen.",
+    short:"Bože, tvoj nam je Jedinorođenac … Po istom Kristu Gospodinu našem. Amen."}
+};
+/* Lauretanske litanije (prema ofm.hr; + zazivi koje je dodao papa Franjo 2020.) */
+const litList=(resp,arr)=>`<div class="lresp">Odgovor: <em>${resp}</em></div><ul class="litany">${arr.map(a=>{const [inv,r]=Array.isArray(a)?a:[a,resp];const n=inv.endsWith("*");return `<li><span>${n?inv.slice(0,-1):inv}${n?' <sup title="Dodano 2020.">✦</sup>':""}</span><em>${r}</em></li>`}).join("")}</ul>`;
+const LIT=[
+  {t:"Lauretanske litanije", sub:"Zazivi Bogu", html:litList("smiluj nam se",[["Gospodine,","smiluj se."],["Kriste,","smiluj se."],["Gospodine,","smiluj se."],["Kriste,","čuj nas."],["Kriste,","usliši nas."],"Oče s neba, Bože,","Sine, Otkupitelju svijeta, Bože,","Duše Sveti, Bože,","Sveto Trojstvo, jedan Bože,"])},
+  {t:"Lauretanske litanije", sub:"Majko…", html:litList("moli za nas",["Sveta Marijo,","Sveta Bogorodice,","Sveta Djevice djevica,","Majko Kristova,","Majko Crkve,","Majko milosrđa,*","Majko milosti Božje,","Majko nade,*","Majko prečista,","Majko neoskvrnjena,","Majko djevičanska,","Majko nepovrijeđena,","Majko ljubezna,","Majko divna,","Majko dobroga savjeta,","Majko Stvoriteljeva,","Majko Spasiteljeva,"])},
+  {t:"Lauretanske litanije", sub:"Djevice…", html:litList("moli za nas",["Djevice premudra,","Djevice časna,","Djevice hvale dostojna,","Djevice moćna,","Djevice milostiva,","Djevice vjerna,","Ogledalo pravde,","Prijestolje mudrosti,","Uzroče naše radosti,","Posudo duhovna,","Posudo poštovana,","Posudo uzorita pobožnosti,","Ružo otajstvena,"])},
+  {t:"Lauretanske litanije", sub:"Tornju Davidov…", html:litList("moli za nas",["Tornju Davidov,","Tornju bjelokosni,","Kućo zlatna,","Kovčeže saveza,","Vrata nebeska,","Zvijezdo jutarnja,","Zdravlje bolesnih,","Utočište grešnika,","Utjeho selilaca,*","Utjeho žalosnih,","Pomoćnice kršćana,"])},
+  {t:"Lauretanske litanije", sub:"Kraljice…", html:litList("moli za nas",["Kraljice anđela,","Kraljice patrijarha,","Kraljice proroka,","Kraljice apostola,","Kraljice mučenika,","Kraljice priznavalaca,","Kraljice djevica,","Kraljice svih svetih,","Kraljice bez grijeha istočnoga začeta,","Kraljice na nebo uznesena,","Kraljice svete krunice,","Kraljice obitelji,","Kraljice mira,"])},
+  {t:"Lauretanske litanije", sub:"Jaganjče Božji", html:`<ul class="litany">${[["Jaganjče Božji, koji oduzimaš grijehe svijeta,","oprosti nam, Gospodine."],["Jaganjče Božji, koji oduzimaš grijehe svijeta,","usliši nas, Gospodine."],["Jaganjče Božji, koji oduzimaš grijehe svijeta,","smiluj nam se."]].map(([a,b])=>`<li class="block"><span>${a}</span><em>${b}</em></li>`).join("")}</ul>`}
+];
+P.pomolimoLit={t:"Pomolimo se", full:"Gospodine Bože, daj nama, slugama svojim, da se vazda radujemo zdravlju duše i tijela; i po slavnom zagovoru blažene Marije vazda Djevice da se izbavimo od sadašnje žalosti i uživamo vječnu radost. Po Kristu Gospodinu našemu. Amen.",
+  short:"Gospodine Bože, daj nama, slugama svojim … i uživamo vječnu radost. Po Kristu Gospodinu našemu. Amen."};
+const zdravo = (ins, short) => short
+  ? `Zdravo Marijo, milosti puna … plod utrobe tvoje, Isus, <em>${ins}</em> … Amen.`
+  : `Zdravo Marijo, milosti puna, Gospodin s tobom! Blagoslovljena ti među ženama i blagoslovljen plod utrobe tvoje, Isus, <em>${ins}</em><br><br>Sveta Marijo, Majko Božja, moli za nas grešnike sada i na času smrti naše. Amen.`;
+
+/* ---------- Otajstva ---------- */
+const M = {
+  radosna:{name:"Radosna otajstva", list:[
+    {t:"Navještenje Gospodinovo", ins:"koga si, Djevice, od Duha Svetoga začela.", ref:"Lk 1,26-38",
+     ex:"Anđeo Gabrijel donosi Mariji poruku da će po Duhu Svetom začeti Sina Božjega. Marija se slobodno predaje Božjem naumu: »Evo službenice Gospodnje.«", fruit:"poniznost"},
+    {t:"Pohođenje Marije Elizabeti", ins:"koga si, Djevice, Elizabeti u pohode nosila.", ref:"Lk 1,39-56",
+     ex:"Marija žuri u gorski kraj pomoći rođakinji Elizabeti. Ivan zaigra u majčinoj utrobi, a Marija pjeva hvalospjev Veliča.", fruit:"ljubav prema bližnjemu"},
+    {t:"Rođenje Isusovo", ins:"koga si, Djevice, rodila.", ref:"Lk 2,1-20",
+     ex:"Sin Božji rađa se u Betlehemu, u siromaštvu jaslica. Prvi mu se dolaze pokloniti pastiri.", fruit:"duh siromaštva i jednostavnosti"},
+    {t:"Prikazanje Isusa u Hramu", ins:"koga si, Djevice, u hramu prikazala.", ref:"Lk 2,22-38",
+     ex:"Marija i Josip donose dijete u Hram i posvećuju ga Bogu. Starac Šimun u njemu prepoznaje svjetlo narodima.", fruit:"poslušnost i čistoća srca"},
+    {t:"Nalazak Isusa u Hramu", ins:"koga si, Djevice, u hramu našla.", ref:"Lk 2,41-52",
+     ex:"Nakon tri dana tjeskobnog traženja Marija i Josip nalaze dvanaestogodišnjeg Isusa u Hramu među učiteljima.", fruit:"traženje Boga iznad svega"}
+  ]},
+  svjetla:{name:"Otajstva svjetla", list:[
+    {t:"Krštenje na Jordanu", ins:"koji je na rijeci Jordanu kršten bio.", ref:"Mt 3,13-17",
+     ex:"Isus, iako bez grijeha, ulazi u vode Jordana među grešnike. Nebo se otvara, Duh Sveti silazi poput goluba, a Otac govori: »Ovo je Sin moj, Ljubljeni.« Ovdje započinje njegovo javno djelovanje.", fruit:"vjernost krsnim obećanjima"},
+    {t:"Objava na svadbi u Kani", ins:"koji nam se na svadbi u Kani objavio.", ref:"Iv 2,1-12",
+     ex:"Na Marijin zagovor Isus pretvara vodu u vino – to je njegovo prvo znamenje. Marija slugama, i nama, poručuje: »Što god vam rekne, učinite!«", fruit:"povjerenje u Marijin zagovor"},
+    {t:"Navještaj Kraljevstva i poziv na obraćenje", ins:"koji nam je navijestio kraljevstvo Božje i pozvao na obraćenje.", ref:"Mk 1,14-15",
+     ex:"Isus propovijeda: »Ispunilo se vrijeme, približilo se kraljevstvo Božje. Obratite se i vjerujte evanđelju!« Oprašta grijehe i liječi bolesne – to milosrđe nastavlja se u sakramentu ispovijedi.", fruit:"obraćenje srca"},
+    {t:"Preobraženje", ins:"koji se na gori preobrazio.", ref:"Lk 9,28-36",
+     ex:"Na gori pred Petrom, Jakovom i Ivanom Isusovo lice zasja, a haljine mu postanu bijele. Iz oblaka Otac govori: »Ovo je Sin moj, Izabranik! Njega slušajte!«", fruit:"želja za svetošću"},
+    {t:"Ustanovljenje Euharistije", ins:"koji je ustanovio Euharistiju.", ref:"Mt 26,26-29",
+     ex:"Na Posljednjoj večeri Isus daje samoga sebe pod prilikama kruha i vina: »Uzmite i jedite, ovo je tijelo moje.« Tako ostaje s nama u svakoj svetoj misi.", fruit:"ljubav prema Euharistiji"}
+  ], note:"Otajstva svjetla dodao je sv. Ivan Pavao II. 2002. godine (apostolsko pismo Rosarium Virginis Mariae). Ona razmatraju Isusovo javno djelovanje."},
+  zalosna:{name:"Žalosna otajstva", list:[
+    {t:"Isusova smrtna borba u Getsemaniju", ins:"koji je za nas krvlju se znojio.", ref:"Lk 22,39-46",
+     ex:"U Maslinskom vrtu Isus u velikoj tjeskobi moli Oca: »Ne moja volja, nego tvoja neka bude!«", fruit:"predanje Božjoj volji"},
+    {t:"Bičevanje", ins:"koji je za nas bičevan bio.", ref:"Iv 19,1",
+     ex:"Pilat daje Isusa izbičevati. On šutke podnosi bol za naše grijehe.", fruit:"pokora i čistoća"},
+    {t:"Krunjenje trnovom krunom", ins:"koji je za nas trnjem okrunjen bio.", ref:"Mt 27,27-31",
+     ex:"Vojnici mu na glavu stavljaju trnovu krunu, u ruke trsku i rugaju mu se kao kralju.", fruit:"poniznost i strpljivost"},
+    {t:"Nošenje križa", ins:"koji je za nas teški križ nosio.", ref:"Lk 23,26-32",
+     ex:"Isus nosi križ na Kalvariju; Šimun Cirenac pomaže mu ga nositi, a jeruzalemske žene plaču za njim.", fruit:"strpljivo nošenje vlastitog križa"},
+    {t:"Raspeće i smrt", ins:"koji je za nas raspet bio.", ref:"Iv 19,25-30",
+     ex:"Isus umire na križu opraštajući svojim mučiteljima. Pod križem nam daje Mariju za Majku.", fruit:"ljubav i opraštanje"}
+  ]},
+  slavna:{name:"Slavna otajstva", list:[
+    {t:"Uskrsnuće", ins:"koji je od mrtvih uskrsnuo.", ref:"Mt 28,1-10",
+     ex:"Treći dan grob je prazan: Isus je uskrsnuo i pobijedio grijeh i smrt.", fruit:"živa vjera"},
+    {t:"Uzašašće", ins:"koji je na nebo uzašao.", ref:"Dj 1,6-11",
+     ex:"Isus se vraća Ocu i obećaje Duha Svetoga. On ostaje s nama u sve dane do svršetka svijeta.", fruit:"nada i čežnja za nebom"},
+    {t:"Silazak Duha Svetoga", ins:"koji je Duha Svetoga poslao.", ref:"Dj 2,1-13",
+     ex:"Na Pedesetnicu Duh Sveti silazi na apostole okupljene s Marijom. Rađa se Crkva.", fruit:"darovi Duha Svetoga"},
+    {t:"Uznesenje Marijino", ins:"koji je tebe, Djevice, na nebo uzeo.", ref:"Otk 12,1",
+     ex:"Na kraju zemaljskog života Marija je dušom i tijelom uznesena u nebesku slavu.", fruit:"milost dobre smrti"},
+    {t:"Krunjenje Marije za Kraljicu neba i zemlje", ins:"koji je tebe, Djevice, na nebu okrunio.", ref:"Otk 12,1",
+     ex:"Marija je okrunjena za Kraljicu neba i zemlje i zagovara nas kod svoga Sina.", fruit:"pouzdanje u Marijin zagovor"}
+  ]}
+};
+const ORDER = ["radosna","svjetla","zalosna","slavna"];
+const SHORTN = {radosna:"Radosna",svjetla:"Svjetla",zalosna:"Žalosna",slavna:"Slavna"};
+
+/* ---------- Datumi i liturgijska godina ---------- */
+const DAYS = ["nedjelja","ponedjeljak","utorak","srijeda","četvrtak","petak","subota"];
+const DAYS_URL = ["nedjelja","ponedjeljak","utorak","srijeda","cetvrtak","petak","subota"];
+const MONTHS_GEN = ["siječnja","veljače","ožujka","travnja","svibnja","lipnja","srpnja","kolovoza","rujna","listopada","studenoga","prosinca"];
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const addDays = (d,n) => {const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);return x;};
+const sameDay = (a,b) => iso(a)===iso(b);
+function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da);}
+function adventStart(y){const xmas=new Date(y,11,25);const dow=xmas.getDay()||7;return addDays(xmas,-dow-21);}
+function baptism(y){const ep=new Date(y,0,6);return addDays(ep,7-ep.getDay());}
+function season(d){
+  const y=d.getFullYear(), t=+new Date(y,d.getMonth(),d.getDate());
+  const E=easter(y), ash=addDays(E,-46), pent=addDays(E,49), adv=adventStart(y);
+  if(t>=+new Date(y,11,25) || t<=+baptism(y)) return {key:"bozic",name:"Božićno vrijeme",color:"bijela"};
+  if(t>=+adv) return {key:"dosasce",name:"Došašće",color:"ljubičasta"};
+  if(t>=+ash && t<+E) return {key:"korizma",name: t>=+addDays(E,-7)?"Veliki tjedan":"Korizma",color:"ljubičasta"};
+  if(t>=+E && t<=+pent) return {key:"vazam",name:"Vazmeno vrijeme",color:"bijela"};
+  return {key:"kroz",name:"Vrijeme kroz godinu",color:"zelena"};
+}
+function mysteriesFor(d){
+  const s=season(d), w=d.getDay();
+  if(w===0 && (s.key==="dosasce"||s.key==="bozic")) return {key:"radosna",why:`Nedjelja u vremenu ${s.key==="dosasce"?"došašća":"Božića"} – po običaju se mole radosna otajstva.`};
+  if(w===0 && s.key==="korizma") return {key:"zalosna",why:"Nedjelja u korizmi – po običaju se mole žalosna otajstva."};
+  const map={1:"radosna",6:"radosna",2:"zalosna",5:"zalosna",3:"slavna",0:"slavna",4:"svjetla"};
+  const names={0:"nedjeljom",1:"ponedjeljkom",2:"utorkom",3:"srijedom",4:"četvrtkom",5:"petkom",6:"subotom"};
+  return {key:map[w], why:`${names[w][0].toUpperCase()+names[w].slice(1)} se mole ${M[map[w]].name.toLowerCase()}.`};
+}
+const COLORS={"zelena":"#3f7a46","bijela":"#e9e4d6","ljubičasta":"#6b3f86","crvena":"#b0302a","ružičasta":"#d58aa6","crna":"#222"};
+function colorOf(name){if(!name)return COLORS.zelena;const k=Object.keys(COLORS).find(c=>name.toLowerCase().startsWith(c));return COLORS[k]||COLORS.zelena;}
+const NZ=["mt","mk","lk","iv","dj","rim","kor","gal","ef","fil","kol","sol","tim","tit","flm","heb","jak","pt","jd","otk"];
+function testament(ref){const b=(ref||"").replace(/^[0-9]\s*/,"").match(/^[A-Za-zČčĆćŽžŠšĐđ]+/);if(!b)return"";return NZ.includes(b[0].toLowerCase())?"NZ":"SZ";}
+const hilpUrl = d => `https://hilp.hr/liturgija-dana/${DAYS_URL[d.getDay()]}-${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}/`;
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- Stanje ---------- */
+let today=new Date(); today=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+let cur=new Date(today);
+let chosen=null; // ručno odabrana otajstva
+let dayData=null;
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Podaci i šifriranje ---------- */
+async function getJSON(path){const r=await fetch(path,{cache:"no-cache"});if(!r.ok)throw new Error(r.status);return r.json();}
+const ub64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+let KEY=null, keyInfo=null;
+async function loadKey(){
+  try{keyInfo=await getJSON("data/key.json");}catch(e){keyInfo=null;return;}
+  const raw=store.get("krunica.key");
+  if(raw){try{KEY=await crypto.subtle.importKey("raw",ub64(raw),"AES-GCM",false,["decrypt"]);if(await decrypt(keyInfo.check,true)!=="krunica-ok")KEY=null;}catch(e){KEY=null;}}
+  document.getElementById("unlockCard").hidden=!!KEY;
+}
+async function unlock(pass){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveKey"]);
+  const k=await crypto.subtle.deriveKey({name:"PBKDF2",hash:"SHA-256",salt:ub64(keyInfo.salt),iterations:keyInfo.iter},base,{name:"AES-GCM",length:256},true,["decrypt"]);
+  const old=KEY; KEY=k;
+  if(await decrypt(keyInfo.check,true).catch(()=>null)!=="krunica-ok"){KEY=old;return false;}
+  const raw=new Uint8Array(await crypto.subtle.exportKey("raw",k));
+  store.set("krunica.key",btoa(String.fromCharCode(...raw)));
+  KEY=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
+  return true;
+}
+async function decrypt(enc,raw){
+  if(!KEY||!enc)return null;
+  const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:ub64(enc.iv)},KEY,ub64(enc.ct));
+  const t=new TextDecoder().decode(pt); return raw?t:JSON.parse(t);
+}
+document.getElementById("unlockForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const msg=document.getElementById("unlockMsg"); msg.textContent="Provjeravam…";
+  const ok=await unlock(document.getElementById("pw").value.trim()).catch(()=>false);
+  if(ok){document.getElementById("unlockCard").hidden=true;renderDay();loadPrayers();}
+  else msg.textContent="Lozinka nije točna. Pokušaj ponovno.";
+});
+
+/* ---------- Prikaz dana ---------- */
+async function renderDay(){
+  const d=cur, s=season(d);
+  document.getElementById("dateTitle").textContent=`${DAYS[d.getDay()][0].toUpperCase()+DAYS[d.getDay()].slice(1)}, ${d.getDate()}. ${MONTHS_GEN[d.getMonth()]}`;
+  document.getElementById("todayLink").hidden=sameDay(d,today);
+  document.getElementById("hilpLink").href=hilpUrl(d);
+  dayData=null;
+  setDay({title:null,season:s.name,color:s.color});
+  chosen=null; renderMysteries();
+  const want=iso(d);
+  try{
+    const x=await getJSON(`data/days/${want}.json`);
+    if(iso(cur)!==want) return;
+    const sec=await decrypt(x.enc).catch(()=>null);
+    const bk=await decrypt(x.encBook).catch(()=>null);
+    dayData={meta:x,readings:sec&&sec.readings,thought:sec&&sec.thought,book:bk};
+    setDay(x,true);
+  }catch(e){
+    if(iso(cur)===want) document.getElementById("dayNote").textContent="Za ovaj dan još nema podataka – čitanja su dostupna na HILP-u.";
+  }
+}
+function setDay(x,full){
+  const s=season(cur);
+  document.getElementById("season").textContent=[s.name, x.color||s.color].filter(Boolean).join(" · ");
+  document.getElementById("litDot").style.background=colorOf(x.color||s.color);
+  document.querySelector("#dayCard").style.setProperty("--lit",colorOf(x.color||s.color));
+  document.getElementById("dayTitle").textContent=x.title||(cur.getDay()===0?"Nedjelja":"Svagdan");
+  const th=document.getElementById("thought"); th.hidden=!(full&&dayData&&dayData.thought); th.textContent=th.hidden?"":"„"+dayData.thought+"“";
+  document.getElementById("dayMeta").textContent=full?[x.rank,x.week,x.psalter].filter(Boolean).join(" · "):"";
+  document.getElementById("saints").innerHTML=(x.saints||[]).map(n=>`<li>${esc(n)}</li>`).join("");
+  document.getElementById("names").textContent=(x.namedays&&x.namedays.length)?"Imendani: "+x.namedays.join(", "):"";
+  const hasText=!!(full&&dayData&&dayData.readings&&dayData.readings.length);
+  document.getElementById("readings").innerHTML=(x.readings||[]).map((r,i)=>{const t=testament(r.ref);return `<div class="rd ${hasText?"tap":""}" data-i="${i}"><span class="badge ${t==="NZ"?"nz":""}" title="${t==="NZ"?"Novi zavjet":"Stari zavjet"}">${t}</span><span class="lbl">${esc(r.label)}</span><span class="ref">${esc(r.ref)}</span></div>`}).join("");
+  document.getElementById("readings").style.display=(x.readings&&x.readings.length)?"":"none";
+  document.getElementById("readAll").hidden=!hasText;
+  document.getElementById("commentBtn").hidden=!(full&&dayData&&dayData.book);
+  document.getElementById("dayNote").textContent=full?(hasText?"Dodirni čitanje za puni tekst. SZ = Stari zavjet · NZ = Novi zavjet.":"SZ = Stari zavjet · NZ = Novi zavjet. Puni tekst na HILP-u."):"";
+}
+
+/* ---------- Čitač ---------- */
+function para(lines,kind){
+  return lines.map((l,i)=>{let c="";
+    if(/^Čitanje\s/i.test(l))c="intro";
+    else if(/^(Riječ Gospodnja|Evanđelje Gospodnje)\.?$/i.test(l))c="end";
+    else if(kind==="Otpjevni psalam"&&i===0)c="refrain";
+    return `<p class="${c}">${esc(l)}</p>`}).join("");
+}
+function openReader(title,html){
+  document.getElementById("rTitle").textContent=title;
+  const b=document.getElementById("rBody"); b.innerHTML=html; b.scrollTop=0;
+  document.getElementById("reader").classList.add("open"); document.body.style.overflow="hidden";
+}
+function closeReader(){document.getElementById("reader").classList.remove("open");document.body.style.overflow="";}
+document.getElementById("rClose").addEventListener("click",closeReader);
+function showReadings(focus){
+  const R=dayData.readings, m=dayData.meta;
+  let h=`<div class="eyebrow">${esc(document.getElementById("dateTitle").textContent)}</div><div class="daytitle" style="margin-bottom:14px">${esc(m.title||"")}</div>`;
+  h+=`<div class="ts">${R.map((r,i)=>`<button data-go="${i}">${esc(r.label)}</button>`).join("")}</div>`;
+  h+=R.map((r,i)=>{const t=testament(r.ref);return `<section class="rsec" id="r${i}"><h2>${esc(r.label)}</h2><div class="rref"><span class="badge ${t==="NZ"?"nz":""}">${t}</span>${esc(r.ref)}</div><div class="rtext">${para(r.lines,r.label)}</div></section>`}).join("");
+  h+=`<div class="rsrc">Izvor: Hrvatski institut za liturgijski pastoral – <a href="${esc(m.source||hilpUrl(cur))}" target="_blank" rel="noopener">hilp.hr</a>. Samo za osobnu molitvu.</div>`;
+  openReader("Čitanja dana",h);
+  if(focus!=null){const el=document.getElementById("r"+focus);if(el)el.scrollIntoView();}
+}
+document.getElementById("rBody").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)document.getElementById("r"+b.dataset.go).scrollIntoView({behavior:"smooth"});});
+document.getElementById("readings").addEventListener("click",e=>{const r=e.target.closest(".rd.tap");if(r)showReadings(+r.dataset.i);});
+document.getElementById("readAll").addEventListener("click",()=>showReadings(null));
+document.getElementById("commentBtn").addEventListener("click",()=>{
+  const b=dayData.book, m=dayData.meta;
+  let h=`<div class="eyebrow">${esc(document.getElementById("dateTitle").textContent)}</div><section class="rsec"><h2>Komentar</h2><div class="rtext">${b.comment.map(l=>`<p>${esc(l)}</p>`).join("")}</div></section>`;
+  if(b.prayer&&b.prayer.length) h+=`<section class="rsec"><h2>Molitva</h2><div class="rtext">${b.prayer.map(l=>`<p>${esc(l)}</p>`).join("")}</div></section>`;
+  h+=`<div class="rsrc">${b.author?"Autor: "+esc(b.author)+" · ":""}Izvor: <a href="${esc(m.book.url)}" target="_blank" rel="noopener">Book.hr</a>. Samo za osobnu molitvu.</div>`;
+  openReader("Komentar dana",h);
+});
+function withTimeout(p,ms){return Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error("timeout")),ms))]);}
+
+function renderMysteries(){
+  const auto=mysteriesFor(cur), key=chosen||auto.key, m=M[key];
+  document.getElementById("mysHead").textContent=m.name;
+  document.getElementById("mysWhy").textContent=chosen&&chosen!==auto.key?`Ručno odabrano (danas bi bila ${M[auto.key].name.toLowerCase()}).`:auto.why;
+  document.getElementById("mysList").innerHTML=m.list.map((x,i)=>`<li><span>${esc(x.t)}</span><button class="info" data-k="${key}" data-i="${i}" aria-label="Objašnjenje">i</button></li>`).join("");
+  document.getElementById("seg").innerHTML=ORDER.map(k=>`<button data-k="${k}" class="${k===key?"on":""}">${SHORTN[k]}</button>`).join("");
+  const lit=store.get("krunica.litanije")!==false, sw=document.getElementById("litSwitch");
+  sw.classList.toggle("on",lit); sw.setAttribute("aria-checked",lit);
+  const r=store.get("krunica.progress");
+  document.getElementById("resumeBtn").classList.toggle("show",!!(r&&r.date===iso(today)&&r.i>0));
+}
+
+/* ---------- Objašnjenje otajstva ---------- */
+function showInfo(k,i){
+  const x=M[k].list[i];
+  document.getElementById("sheetBody").innerHTML=`<div class="eyebrow">${esc(M[k].name)} · ${i+1}. otajstvo</div><h3>${esc(x.t)}</h3><div class="ref">📖 ${esc(x.ref)}</div><p>${esc(x.ex)}</p><p class="fruit">Plod otajstva: ${esc(x.fruit)}</p>${M[k].note?`<p class="fruit">${esc(M[k].note)}</p>`:""}<button class="close" id="shClose">Zatvori</button>`;
+  document.getElementById("sheet").classList.add("open");
+}
+document.getElementById("sheet").addEventListener("click",e=>{if(e.target.id==="sheet"||e.target.id==="shClose")document.getElementById("sheet").classList.remove("open");});
+document.getElementById("mysList").addEventListener("click",e=>{const b=e.target.closest(".info");if(b)showInfo(b.dataset.k,+b.dataset.i);});
+document.getElementById("litSwitch").addEventListener("click",()=>{store.set("krunica.litanije",store.get("krunica.litanije")===false);renderMysteries();});
+document.getElementById("seg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;chosen=b.dataset.k;renderMysteries();});
+
+/* ---------- Krunica korak po korak ---------- */
+function buildSteps(key){
+  const S=[];
+  S.push({p:"kriz",kind:"Početak"});
+  S.push({p:"vjerujem",kind:"Početak"});
+  S.push({p:"ocenas",kind:"Početak",bead:"big",d:-1});
+  ["koji neka nam umnoži vjeru.","koji neka nam učvrsti ufanje.","koji neka nam usavrši ljubav."].forEach((ins,i)=>S.push({hm:ins,kind:"Početak",bead:i,of:3,d:-1}));
+  S.push({p:"slava",kind:"Početak"});
+  M[key].list.forEach((m,d)=>{
+    S.push({p:"ocenas",kind:`${d+1}. desetica`,mys:d,bead:"big",d});
+    for(let i=0;i<10;i++) S.push({hm:m.ins,kind:`${d+1}. desetica`,mys:d,bead:i,of:10,d});
+    S.push({p:"slava",kind:`${d+1}. desetica`,mys:d,d});
+    S.push({p:"fatima",kind:`${d+1}. desetica`,mys:d,d});
+  });
+  S.push({p:"kraljice",kind:"Završetak"});
+  const withLit=store.get("krunica.litanije")!==false;
+  if(withLit) LIT.forEach((l,i)=>S.push({lit:i,kind:"Litanije"}));
+  S.push({p:"molizanas",kind:"Završetak"});
+  S.push({p:withLit?"pomolimoLit":"pomolimo",kind:"Završetak"});
+  S.push({p:"kriz",kind:"Završetak",last:true});
+  return S;
+}
+let R={key:null,steps:[],i:0,short:false};
+function openPray(key,i){
+  R.key=key; R.steps=buildSteps(key); R.i=i||0; R.short=!!store.get("krunica.short");
+  document.getElementById("pray").classList.add("open");
+  document.body.style.overflow="hidden";
+  try{navigator.wakeLock&&navigator.wakeLock.request("screen").then(l=>R.lock=l).catch(()=>{});}catch(e){}
+  drawStep();
+}
+function closePray(){
+  document.getElementById("pray").classList.remove("open");document.body.style.overflow="";
+  try{R.lock&&R.lock.release();}catch(e){}
+  renderMysteries();
+}
+function drawStep(){
+  const s=R.steps[R.i], m=M[R.key];
+  document.getElementById("pMini").textContent=`${m.name} · ${s.kind}`;
+  document.getElementById("shortBtn").textContent=R.short?"Puni tekst":"Kratko";
+  // desetice
+  const dec=document.getElementById("decs");
+  dec.innerHTML=[0,1,2,3,4].map(i=>`<i class="${s.d>i||(s.d===undefined&&s.kind==="Završetak")?"done":s.d===i?"now":""}"></i>`).join("");
+  // zrnca
+  const beads=document.getElementById("beads");
+  if(s.d!==undefined){
+    const n=s.d===-1?3:10;
+    let h=`<span class="bead big1 ${s.bead==="big"?"now":"done"}"></span>`;
+    for(let i=0;i<n;i++){const st=s.bead==="big"?"":(i<s.bead?"done":i===s.bead?"now":"");h+=`<span class="bead ${st}"></span>`;}
+    beads.innerHTML=h; beads.style.visibility= (s.p==="slava"||s.p==="fatima")?"hidden":"visible";
+  } else {beads.innerHTML="";}
+  let html="";
+  if(s.mys!==undefined && (s.p==="ocenas")){
+    const x=m.list[s.mys];
+    html+=`<div class="mysbox"><div class="n">${s.mys+1}. otajstvo</div><div class="t">${esc(x.t)}</div><button data-info="${s.mys}">Objašnjenje i ${esc(x.ref)}</button></div>`;
+  }
+  if(s.lit!==undefined){
+    const l=LIT[s.lit];
+    html+=`<div class="pkind">${l.t} · ${s.lit+1}/${LIT.length}</div><div class="ptitle">${l.sub}</div>${l.html}`;
+    if(l.html.includes("✦")) html+=`<div class="note" style="text-align:center">✦ zaziv koji je papa Franjo dodao 2020.</div>`;
+  } else if(s.hm){
+    html+=`<div class="pkind">Zdravo Marijo</div>`;
+    if(s.mys!==undefined) html+=`<div class="ptitle" style="font-size:1.05rem;color:var(--muted)">${esc(m.list[s.mys].t)}</div>`;
+    html+=`<div class="pcount">${s.bead+1} / ${s.of}</div><div class="ptext">${zdravo(esc(s.hm),R.short)}</div>`;
+  } else {
+    const p=P[s.p];
+    html+=`<div class="ptitle">${p.t}</div><div class="ptext" style="margin-top:10px">${R.short&&p.short?p.short:p.full}</div>`;
+  }
+  const body=document.getElementById("pbody"); body.innerHTML=html; body.scrollTop=0;
+  body.classList.toggle("top",s.lit!==undefined);
+  document.getElementById("nextBtn").textContent=s.last?"Amen – završi":"Dalje";
+  document.getElementById("backBtn").disabled=R.i===0;
+  store.set("krunica.progress",{date:iso(today),key:R.key,i:R.i});
+}
+function nextStep(){
+  if(R.i>=R.steps.length-1){store.set("krunica.progress",null);closePray();return;}
+  R.i++; drawStep();
+}
+document.getElementById("nextBtn").addEventListener("click",nextStep);
+document.getElementById("backBtn").addEventListener("click",()=>{if(R.i>0){R.i--;drawStep();}});
+document.getElementById("pbody").addEventListener("click",e=>{const b=e.target.closest("[data-info]");if(b){showInfo(R.key,+b.dataset.info);return;} if(R.steps[R.i].hm) nextStep();});
+document.getElementById("closePray").addEventListener("click",closePray);
+document.getElementById("shortBtn").addEventListener("click",()=>{R.short=!R.short;store.set("krunica.short",R.short);drawStep();});
+document.getElementById("startBtn").addEventListener("click",()=>openPray(chosen||mysteriesFor(cur).key,0));
+document.getElementById("resumeBtn").addEventListener("click",()=>{const r=store.get("krunica.progress");if(r)openPray(r.key,r.i);});
+document.addEventListener("keydown",e=>{if(!document.getElementById("pray").classList.contains("open"))return;if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();nextStep();}if(e.key==="ArrowLeft"&&R.i>0){R.i--;drawStep();}if(e.key==="Escape")closePray();});
+
+/* ---------- Navigacija po danima ---------- */
+document.getElementById("prev").addEventListener("click",()=>{cur=addDays(cur,-1);renderDay();});
+document.getElementById("next").addEventListener("click",()=>{cur=addDays(cur,1);renderDay();});
+document.getElementById("todayLink").addEventListener("click",e=>{e.preventDefault();cur=new Date(today);renderDay();});
+
+/* ---------- Molitve s Bog je tu ---------- */
+let prayerTexts=null, prayerItems=[];
+async function loadPrayers(){
+  const el=document.getElementById("prayers");
+  const fallback=`<li class="empty">Najnovije molitve i devetnice: <a href="https://bogjetu.com/category/duhovnost/molitve/" target="_blank" rel="noopener">bogjetu.com</a></li>`;
+  try{
+    const p=await getJSON("data/prayers.json");
+    prayerItems=p.items||[]; prayerTexts=await decrypt(p.enc).catch(()=>null);
+    if(!prayerItems.length){el.innerHTML=fallback;return;}
+    el.innerHTML=prayerItems.slice(0,12).map((x,i)=>{const dt=x.date?new Date(x.date+"T12:00:00"):null;
+      const inner=`${esc(x.title)}<small>${esc(x.kind||"Molitva")}${dt?" · "+dt.getDate()+". "+MONTHS_GEN[dt.getMonth()]:""}</small>`;
+      return prayerTexts&&prayerTexts[x.url]?`<li><a href="#" data-p="${i}">${inner}</a></li>`:`<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${inner}</a></li>`}).join("");
+  }catch(e){el.innerHTML=fallback;}
+}
+document.getElementById("prayers").addEventListener("click",e=>{
+  const a=e.target.closest("[data-p]"); if(!a)return; e.preventDefault();
+  const x=prayerItems[+a.dataset.p];
+  openReader(x.kind||"Molitva",`<section class="rsec"><h2>${esc(x.title)}</h2><div class="rtext">${prayerTexts[x.url]}</div></section><div class="rsrc">Izvor: <a href="${esc(x.url)}" target="_blank" rel="noopener">Bog je tu</a>. Samo za osobnu molitvu.</div>`);
+});
+
+/* ---------- Start ---------- */
+(async()=>{ await loadKey(); renderDay(); loadPrayers(); })();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"){const t=new Date();const nt=new Date(t.getFullYear(),t.getMonth(),t.getDate());if(!sameDay(nt,today)){today=nt;cur=new Date(nt);renderDay();loadPrayers();}}});
+</script>
+</body>
+</html>
