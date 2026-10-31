@@ -222,7 +222,8 @@ async function main() {
   const key = await getKey();
   if (!key) report.errors.push("KRUNICA_KEY nije postavljen – tekstovi se ne spremaju, samo metapodaci");
   const today = zagrebToday();
-  const book = await fetchBook(isoOf(today)).catch((e) => (report.errors.push("book: " + e.message), {}));
+  // Book.hr blokira automatski pristup – komentar ostaje samo kao poveznica u aplikaciji.
+  const book = {};
   report.book = Object.keys(book);
 
   for (let n = -1; n <= AHEAD; n++) {

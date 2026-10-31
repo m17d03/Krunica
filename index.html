@@ -169,6 +169,7 @@ a{color:var(--accent)}
       <button class="pill" id="readAll" hidden>📖 Čitaj sva čitanja</button>
       <button class="pill" id="commentBtn" hidden>💬 Komentar i molitva</button>
       <a class="pill" id="hilpLink" href="#" target="_blank" rel="noopener">↗ HILP</a>
+      <a class="pill" href="https://book.hr/aktualnosti/dnevna-misna-citanja/" target="_blank" rel="noopener">↗ Komentar (Book.hr)</a>
     </div>
     <div class="note" id="dayNote"></div>
   </section>
@@ -413,7 +414,9 @@ function setDay(x,full){
   document.getElementById("season").textContent=[s.name, x.color||s.color].filter(Boolean).join(" · ");
   document.getElementById("litDot").style.background=colorOf(x.color||s.color);
   document.querySelector("#dayCard").style.setProperty("--lit",colorOf(x.color||s.color));
-  document.getElementById("dayTitle").textContent=x.title||(cur.getDay()===0?"Nedjelja":"Svagdan");
+  let ttl=x.title;
+  if(ttl&&/^\S+,\s*\d{1,2}\.\s*\d{1,2}\.\s*\d{4}/.test(ttl)) ttl=(x.saints&&x.saints.length&&/spomendan|blagdan/i.test(x.rank||""))?x.saints[0].replace(/\s*\(†[^)]*\)/,""):(x.rank||null);
+  document.getElementById("dayTitle").textContent=ttl||(cur.getDay()===0?"Nedjelja":"Svagdan");
   const th=document.getElementById("thought"); th.hidden=!(full&&dayData&&dayData.thought); th.textContent=th.hidden?"":"„"+dayData.thought+"“";
   document.getElementById("dayMeta").textContent=full?[x.rank,x.week,x.psalter].filter(Boolean).join(" · "):"";
   document.getElementById("saints").innerHTML=(x.saints||[]).map(n=>`<li>${esc(n)}</li>`).join("");
