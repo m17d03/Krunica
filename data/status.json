@@ -1,7 +1,6 @@
 {
- "run": "2026-11-18T11:47:10.241Z",
+ "run": "2026-11-19T11:43:36.908Z",
  "days": {
-  "2026-11-17": "ok (postoji)",
   "2026-11-18": "ok (postoji)",
   "2026-11-19": "ok (postoji)",
   "2026-11-20": "ok (postoji)",
@@ -16,12 +15,10 @@
   "2026-11-29": "ok (postoji)",
   "2026-11-30": "ok (postoji)",
   "2026-12-01": "ok (postoji)",
-  "2026-12-02": "ok · 3 čitanja"
+  "2026-12-02": "ok (postoji)",
+  "2026-12-03": "ok · 3 čitanja"
  },
  "book": [],
- "prayers": 0,
- "errors": [
-  "bogjetu Molitva: 502 https://bogjetu.com/category/duhovnost/molitve/feed/",
-  "bogjetu Devetnica: 502 https://bogjetu.com/category/duhovnost/devetnice/feed/"
- ]
+ "prayers": 20,
+ "errors": []
 }
