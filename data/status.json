@@ -1,7 +1,6 @@
 {
- "run": "2026-11-26T12:39:37.774Z",
+ "run": "2026-11-27T12:26:47.311Z",
  "days": {
-  "2026-11-25": "ok (postoji)",
   "2026-11-26": "ok (postoji)",
   "2026-11-27": "ok (postoji)",
   "2026-11-28": "ok (postoji)",
@@ -16,9 +15,12 @@
   "2026-12-07": "ok (postoji)",
   "2026-12-08": "ok (postoji)",
   "2026-12-09": "ok (postoji)",
-  "2026-12-10": "ok · 3 čitanja"
+  "2026-12-10": "ok (postoji)",
+  "2026-12-11": "greška: HILP: nije pronađen redak s datumom"
  },
  "book": [],
- "prayers": 20,
- "errors": []
+ "prayers": 0,
+ "errors": [
+  "2026-12-11: HILP: nije pronađen redak s datumom"
+ ]
 }
